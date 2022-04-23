@@ -10,9 +10,7 @@ public class GuildListener extends ListenerAdapter {
     public void onGuildJoin(@NotNull GuildJoinEvent event) {
         MessageChannel channel = event.getGuild().getSystemChannel();
         String sep = System.lineSeparator();
-        String introMessage = "*That is not dead which can eternal lie." + sep +
-                "And with strange aeons even death may die.*" + sep +
-                "Hello, I'm DarkBot, a bot made to help running Chronicles of Darkness " +
+        String introMessage = "Hello, I'm DarkBot, a bot made to help running Chronicles of Darkness " +
                 "on Discord. You can check out the source code at: " +
                 "https://github.com/andersonstv/darkbot";
         if (channel != null){
