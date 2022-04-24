@@ -17,25 +17,14 @@ public class CharacterController {
         String[] input = messageContent.split(" ");
         Matcher name = Pattern.compile(FormatUtil.quotesRegex).matcher(messageContent);
         String response = "";
-        if (input.length > 2 && name.find()){
-            switch (input[1].toLowerCase()){
-                case "wod":
-                    if (createWodCharacter(name.group(1), userId)){
-                        response = "Character created successfully.";
-                    } else {
-                        response = "That Character already exists.";
-                    }
-                    break;
-                case "coc":
-                    if (createCocCharacter(name.group(1), userId)){
-                        response = "Character created successfully.";
-                    } else {
-                        response = "That Character already exists.";
-                    }
-                    break;
+        if (input.length > 1 && name.find()){
+            if (createWodCharacter(name.group(1), userId)) {
+                response = "Character created successfully.";
+            } else {
+                response = "That Character already exists.";
             }
         } else {
-            response = "Invalid Input: Try $create <wod/coc> <name>";
+            response = "Invalid Input: Try $create <name>";
         }
         return response;
     }
@@ -49,21 +38,14 @@ public class CharacterController {
         }
         return response;
     }
-
     public boolean createWodCharacter(String charName, String userId){
         if (!playerMap.containsKey(userId)) {
             playerMap.put(userId, new Player(userId));
         }
-        return playerMap.get(userId).createWodCharacter(charName);
-    }
-    public boolean createCocCharacter(String charName, String userId){
-        if (!playerMap.containsKey(userId)) {
-            playerMap.put(userId, new Player(userId));
-        }
-        return playerMap.get(userId).createCocCharacter(charName);
+        return playerMap.get(userId).createCharacter(charName);
     }
     public String removeChar(String userId, String charName){
-        Character deleted = playerMap.get(userId).removeChar(charName);
+        WoDCharacter deleted = playerMap.get(userId).removeChar(charName);
         String response;
         if (deleted == null){
             response = "Character not found.";

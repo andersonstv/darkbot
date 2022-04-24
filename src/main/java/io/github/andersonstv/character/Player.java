@@ -1,34 +1,33 @@
 package io.github.andersonstv.character;
 
-import io.github.andersonstv.util.DiceUtil;
 import io.github.andersonstv.util.FormatUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Player {
-    Map<String, Character> characterMap;
+    Map<String, WoDCharacter> characterMap;
     String userID;
-    Character current;
+    WoDCharacter current;
 
     public Player(String userID) {
         characterMap = new LinkedHashMap<>();
         this.userID = userID;
     }
 
-    public Character getCurrent() {
+    public WoDCharacter getCurrent() {
         return current;
     }
 
-    public Map<String, Character> getCharacterMap() {
+    public Map<String, WoDCharacter> getCharacterMap() {
         return characterMap;
     }
 
-    public void setCharacterMap(Map<String, Character> characterMap) {
+    public void setCharacterMap(Map<String, WoDCharacter> characterMap) {
         this.characterMap = characterMap;
     }
 
-    public void setCurrent(Character current) {
+    public void setCurrent(WoDCharacter current) {
         this.current = current;
     }
 
@@ -36,8 +35,8 @@ public class Player {
         this.current = characterMap.get(charName);
     }
 
-    public boolean createWodCharacter(String charName){
-        Character newCharacter = new WoDCharacter(charName);
+    public boolean createCharacter(String charName){
+        WoDCharacter newCharacter = new WoDCharacter(charName);
         if(!characterMap.containsKey(newCharacter.getId())){
             characterMap.put(newCharacter.getId(), newCharacter);
             return true;
@@ -45,16 +44,7 @@ public class Player {
             return false;
         }
     }
-    public boolean createCocCharacter(String charName){
-        Character newCharacter = new CoCCharacter(charName);
-        if(!characterMap.containsKey(newCharacter.getId())){
-            characterMap.put(newCharacter.getId(), newCharacter);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public Character removeChar(String charId){
+    public WoDCharacter removeChar(String charId){
         return characterMap.remove(charId);
     }
     public String check(String stat){
@@ -87,7 +77,7 @@ public class Player {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("Your Characters: ").append(FormatUtil.sep);
-        for (Character c : characterMap.values()) {
+        for (WoDCharacter c : characterMap.values()) {
             result.append(c.getId()).append(FormatUtil.sep);
         }
         return result.toString();
